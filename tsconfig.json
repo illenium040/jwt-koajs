@@ -1,0 +1,16 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+      "sourceMap": true,
+      "outDir": "build",
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "strict": true
+    },
+    "include": [
+        "**/*"
+    ],
+    "exclude": [ ]
+  }
