@@ -1,4 +1,4 @@
-import { DateConverter } from "../extensions/dateStaticHelper";
+import "../extensions/date";
 
 export interface IToken {
     expiresDate?: Date;
@@ -14,7 +14,7 @@ export abstract class Token implements IToken {
     protected _value: string;
     protected constructor(value: string, expiresIn: string | number = '30 minutes') {
         this._value = value;
-        this._expiresDate = DateConverter.addTimeToNow(expiresIn);
+        this._expiresDate = Date.addTimeToNow(expiresIn);
     }
 
     public get value(): string {
