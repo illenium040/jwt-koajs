@@ -5,6 +5,9 @@ export interface IToken {
     value: string;
 }
 
+/**
+ * Base token class
+ */
 export abstract class Token implements IToken {
 
     protected _expiresDate: Date;

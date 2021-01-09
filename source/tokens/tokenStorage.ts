@@ -15,13 +15,33 @@ export interface ITokensBody {
 
 
 export interface ITokensStorage {
-    storeTokens(tokens: ITokensPair, cookies: Cookies, cookieName: string): Promise<ITokensBody>;
+    /**
+    *Save access and refresh tokens.
+    *@param tokens tokens to save.
+    *@param cookies context cookies instance.
+    *@param cookieName access token cookie name.
+    *@return tokens values.
+    */
+    saveTokens(tokens: ITokensPair, cookies: Cookies, cookieName: string): Promise<ITokensBody>;
+    /**
+    *Update access and refresh tokens.
+    *@param tokens tokens to update.
+    *@param cookies context cookies instance.
+    *@param cookieName access token cookie name.
+    *@return tokens values.
+    */
     updateTokens(tokens: ITokensPair, cookies: Cookies, cookieName: string): Promise<ITokensBody>;
+    /**
+    *Check refresh token with hashed token in database by user_guid.
+    *@param userGuid current user_guid.
+    *@param refreshToken unhashed refresh token from client.
+    *@return compare result.
+    */
     isValid(userGuid: string, refreshToken: IRefreshToken): Promise<boolean>;
 }
 
 export class TokenStorage implements ITokensStorage {
-    public async storeTokens(tokens: ITokensPair, cookies: Cookies, cookieName: string): Promise<ITokensBody> {
+    public async saveTokens(tokens: ITokensPair, cookies: Cookies, cookieName: string): Promise<ITokensBody> {
         this.storeAction(UserTokenModel.saveToken(tokens.userGuid, tokens.refreshToken));
         await cookies.set(cookieName, tokens.accessToken.value);
         return this.getTokensBody(tokens);

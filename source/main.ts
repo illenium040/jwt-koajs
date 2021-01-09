@@ -27,8 +27,9 @@ export default class KoaBuilder {
         this._router
             .get('/createTokens/:userguid', async (ctx, next) => {
                 const tokens = await this._tokenService.createTokens(ctx.params["userguid"]);
-                ctx.body = await this._tokenService.storeTokens(tokens, ctx.cookies);
+                ctx.body = await this._tokenService.saveTokens(tokens, ctx.cookies);
             })
+            //refresh token should be stored at client side in session or local storage
             .get('/updateTokens/:refreshtoken', async (ctx, next) => {
                 const updatedTokens = await this._tokenService
                     .updateTokens(ctx.cookies.get(this._tokenService.cookieName)!, ctx.params["refreshtoken"]);
